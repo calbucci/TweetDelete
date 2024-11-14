@@ -13,14 +13,16 @@ API_SECRET_KEY = config.get("twitter", "API_SECRET_KEY")
 ACCESS_TOKEN = config.get("twitter", "ACCESS_TOKEN")
 ACCESS_TOKEN_SECRET = config.get("twitter", "ACCESS_TOKEN_SECRET")
 
+print(f"API_KEY: {API_KEY}")
+
 # Authenticate to Twitter API
 auth = tweepy.OAuthHandler(API_KEY, API_SECRET_KEY)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth, wait_on_rate_limit=True)
 
-# Calculate the cutoff date (90 days ago from now)
-now = datetime.datetime.utcnow()
-cutoff_date = now - datetime.timedelta(days=90)
+# Calculate the cutoff date
+now = datetime.datetime.now(datetime.timezone.utc)
+cutoff_date = now - datetime.timedelta(days=30)
 
 
 # Function to delete old tweets
